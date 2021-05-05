@@ -1,17 +1,26 @@
-import { useState } from "react";
+import { Button, FormControl, Input, InputLabel } from "@material-ui/core";
+import { useEffect, useState } from "react";
 import "./App.css";
+import Message from "./Message";
 
 function App() {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    setUsername(prompt("Please enter your name:"));
+  }, []);
 
   const sendMessage = (event) => {
-
     // stops refreshing when form is submitted
     event.preventDefault();
-    
+
     // append to message array
-    setMessages([...messages, input]);
+    setMessages([
+      ...messages,
+      { username: username, text: input, timestamp: Date.now() },
+    ]);
 
     // clear input field
     setInput("");
@@ -20,24 +29,37 @@ function App() {
   return (
     <div className="App">
       <h1>iMe</h1>
+      <h3>Welcome {username}</h3>
 
       {/* Message Area */}
-      {messages.map((message) => (
-        <p>{message}</p>
+      {messages.map((message, index) => (
+        <Message
+          key={index}
+          username={message.username}
+          text={message.text}
+          timestamp={message.timestamp}
+        />
       ))}
 
-      <form>
-        <input
+      <FormControl>
+        <InputLabel>Enter message...</InputLabel>
+
+        <Input
           type="text"
-          placeholder="Enter message..."
           value={input}
           onChange={(event) => setInput(event.target.value)}
         />
 
-        <button type="submit" onClick={sendMessage}>
+        <Button
+          variant="outlined"
+          color="primary"
+          disabled={!input}
+          type="submit"
+          onClick={sendMessage}
+        >
           Send message
-        </button>
-      </form>
+        </Button>
+      </FormControl>
     </div>
   );
 }
