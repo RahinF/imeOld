@@ -7,7 +7,7 @@ const StyledCard = styled(Card)`
   margin: 10px;
   width: fit-content;
 
-  background-color: ${(props) => (props.currentuser ? `blue` : `grey`)} !important;
+  background-color: ${(props) => (props.currentuser ? `purple` : `grey`)} !important;
 
   ${(props) => props.currentuser && `margin-left: auto;`};
 
