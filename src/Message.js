@@ -7,32 +7,30 @@ const StyledCard = styled(Card)`
   margin: 10px;
   width: fit-content;
 
-  background: ${(props) => (props.currentuser ? `blue` : `grey`)};
+  background-color: ${(props) => (props.currentuser ? `blue` : `grey`)} !important;
 
   ${(props) => props.currentuser && `margin-left: auto;`};
 
-  color: white;
+  color: white !important;
   text-align: left;
 `;
 
 const Message = forwardRef(({ username, message }, ref) => {
   const isUser = username === message.username;
 
-  console.log(message);
-
   return (
     <StyledCard ref={ref} currentuser={isUser}>
       <CardContent>
         <Typography color="white" variant="h4">
-          {message.username}
+          {!isUser && `${message.username || "Unknown User"}`}
           {/* {console.log(new Date(message.timestamp.seconds*1000))} */}
         </Typography>
-        <Typography color="white" variant="h5">
+        <Typography color="textPrimary" variant="body1">
           {message.text}
         </Typography>
       </CardContent>
     </StyledCard>
   );
-})
+});
 
 export default Message;
