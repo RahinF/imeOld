@@ -1,22 +1,37 @@
+import { Card, CardContent, Typography } from "@material-ui/core";
 import React from "react";
+import styled from "styled-components";
 
-function Message({ username, text, timestamp }) {
+const StyledCard = styled(Card)`
+  padding: 10px;
+  margin: 10px;
+  width: fit-content;
+
+  background: ${(props) => (props.currentuser ? `blue` : `grey`)};
+
+  ${(props) => (props.currentuser && `margin-left: auto;`)};
+  
+  color: white;
+  text-align: left;
+`;
+
+function Message({ username, message }) {
+  const isUser = username === message.username;
+
+  console.log(message);
+
   return (
-    <div>
-      <p>
-        {username}: {text}
-      </p>
-      <p>
-        {Intl.DateTimeFormat("en-US", {
-          year: "numeric",
-          month: "2-digit",
-          day: "2-digit",
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-        }).format(timestamp)}
-      </p>
-    </div>
+    <StyledCard currentuser={isUser}>
+      <CardContent>
+        <Typography color="white" variant="h4">
+          {message.username}
+          {/* {console.log(new Date(message.timestamp.seconds*1000))} */}
+        </Typography>
+        <Typography color="white" variant="h5">
+          {message.text}
+        </Typography>
+      </CardContent>
+    </StyledCard>
   );
 }
 
