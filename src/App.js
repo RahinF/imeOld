@@ -4,6 +4,7 @@ import "./App.css";
 import database from "./firebase";
 import Message from "./Message";
 import firebase from "firebase";
+import FlipMove from "react-flip-move";
 
 function App() {
   const [input, setInput] = useState("");
@@ -16,7 +17,7 @@ function App() {
       .collection("messages")
       .orderBy("timestamp", "asc")
       .onSnapshot((snapshot) => {
-        setMessages(snapshot.docs.map((doc) => doc.data()));
+        setMessages(snapshot.docs.map((doc) => ({id: doc.id, message: doc.data()})));
       });
   }, []);
 
@@ -44,10 +45,11 @@ function App() {
       <h1>iMe</h1>
       <h3>Welcome {username}</h3>
 
-      {/* Message Area */}
-      {messages.map((message, index) => (
-        <Message key={index} username={username} message={message} />
-      ))}
+      <FlipMove>
+        {messages.map(({id, message}) => (
+          <Message key={id} username={username} message={message} />
+        ))}
+      </FlipMove>
 
       <FormControl>
         <InputLabel>Enter message...</InputLabel>
