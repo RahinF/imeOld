@@ -1,5 +1,5 @@
 import React from "react";
-import firebase from "firebase";
+import firebase from "firebase/app";
 import { auth } from "./firebase";
 
 const signInWithGoogle = () => {
@@ -11,7 +11,7 @@ const signOut = () => {
   auth.signOut();
 };
 
-function SignIn({type}) {
+function SignIn({ type }) {
   let onClick, buttonText;
 
   switch (type) {
@@ -19,13 +19,14 @@ function SignIn({type}) {
       buttonText = "Sign in with Google";
       onClick = signInWithGoogle;
       break;
+
     case "Sign Out":
       buttonText = "Sign out";
       onClick = signOut;
       break;
 
-      default:
-          break;
+    default:
+      break;
   }
   return (
     <div>

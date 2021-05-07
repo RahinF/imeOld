@@ -1,5 +1,5 @@
 import { Card, CardContent, Typography } from "@material-ui/core";
-import React, { forwardRef } from "react";
+import { forwardRef } from "react";
 import styled from "styled-components";
 
 const StyledCard = styled(Card)`
@@ -8,9 +8,9 @@ const StyledCard = styled(Card)`
   width: fit-content;
 
   background-color: ${(props) =>
-    props.currentuser ? `purple` : `grey`} !important;
+    props.$currentuser ? `purple` : `grey`} !important;
 
-  ${(props) => props.currentuser && `margin-left: auto;`};
+  ${(props) => props.$currentuser && `margin-left: auto;`};
 
   color: white !important;
   text-align: left;
@@ -20,7 +20,7 @@ const Message = forwardRef(({ uid, message }, ref) => {
   const isUser = uid === message.uid;
 
   return (
-    <StyledCard ref={ref} currentuser={isUser}>
+    <StyledCard ref={ref} $currentuser={isUser}>
       <CardContent>
         {!isUser && <img src={message.photoURL} alt="" />}
         <Typography color="primary" variant="h4">
