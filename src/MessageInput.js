@@ -1,6 +1,6 @@
 import { forwardRef, useState } from "react";
 import SendIcon from "@material-ui/icons/Send";
-import { FormControl, Input, InputLabel, IconButton } from "@material-ui/core";
+import { FormControl, IconButton, TextField } from "@material-ui/core";
 import styled from "styled-components";
 import { database, auth } from "./firebase";
 import firebase from "firebase/app";
@@ -24,7 +24,7 @@ const StyledFormControl = styled(FormControl)`
   flex-direction: row !important;
 `;
 
-const StyledInput = styled(Input)`
+const StyledInput = styled(TextField)`
   width: 100%;
 `;
 
@@ -60,11 +60,13 @@ const MessageInput = forwardRef((_, bottomOfMessageArea) => {
     <StyledForm>
       <StyledFormControl>
         <StyledInputArea>
-          <InputLabel>Enter message...</InputLabel>
           <StyledInput
             type="text"
             value={input}
             onChange={(event) => setInput(event.target.value)}
+            multiline
+            rowsMax={4}
+            label="Enter message..."
           />
         </StyledInputArea>
 
