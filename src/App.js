@@ -3,12 +3,15 @@ import SignIn from "./SignIn";
 import { auth } from "./firebase";
 import MessageArea from "./MessageArea";
 import styled from "styled-components";
+import MessageInput from "./MessageInput";
 
 const StyledHeader = styled.header`
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  background: white;
+  background: #e9e9eb;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 10vh;
+  padding: 0 10px ;
 `;
 
 const AppBody = styled.div`
@@ -27,16 +30,15 @@ function App() {
         <SignIn type={user ? "Sign Out" : "Sign In"} />
       </StyledHeader>
 
-      <main>{user && <ChatRoom />}</main>
+      <main>
+        {user && (
+          <>
+            <MessageArea />
+            <MessageInput />
+          </>
+        )}
+      </main>
     </AppBody>
-  );
-}
-
-function ChatRoom() {
-  return (
-    <>
-      <MessageArea />
-    </>
   );
 }
 

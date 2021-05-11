@@ -1,12 +1,18 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import FlipMove from "react-flip-move";
 import Message from "./Message";
 import { database, auth } from "./firebase";
-import MessageInput from "./MessageInput";
+
+import styled from "styled-components";
+
+const MessageDisplayArea = styled.div`
+  height: 80vh;
+  overflow-y: auto;
+`;
 
 function MessageArea() {
   const { uid } = auth.currentUser;
-  const bottomOfMessageArea = useRef();
+
 
   const [messages, setMessages] = useState([]);
 
@@ -23,19 +29,13 @@ function MessageArea() {
   }, []);
 
   return (
-    <>
-      <div>
-        <FlipMove>
-          {messages.map(({ id, message }) => (
-            <Message key={id} uid={uid} message={message} />
-          ))}
-        </FlipMove>
-
-        <span ref={bottomOfMessageArea}></span>
-      </div>
-
-      <MessageInput ref={bottomOfMessageArea} />
-    </>
+    <MessageDisplayArea>
+      <FlipMove>
+        {messages.map(({ id, message }) => (
+          <Message key={id} uid={uid} message={message} />
+        ))}
+      </FlipMove>
+    </MessageDisplayArea>
   );
 }
 

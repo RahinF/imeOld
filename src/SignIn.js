@@ -1,6 +1,7 @@
 import React from "react";
 import firebase from "firebase/app";
 import { auth } from "./firebase";
+import { Button } from "@material-ui/core";
 
 const signInWithGoogle = () => {
   const provider = new firebase.auth.GoogleAuthProvider();
@@ -29,9 +30,9 @@ function SignIn({ type }) {
       break;
   }
   return (
-    <div>
-      <button onClick={onClick}>{buttonText}</button>
-    </div>
+    <Button variant="contained" color="primary" disableElevation onClick={onClick}>
+      {buttonText}
+    </Button>
   );
 }
 

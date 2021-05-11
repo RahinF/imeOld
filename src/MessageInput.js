@@ -1,4 +1,4 @@
-import { forwardRef, useState } from "react";
+import { useState } from "react";
 import SendIcon from "@material-ui/icons/Send";
 import { FormControl, IconButton, TextField } from "@material-ui/core";
 import styled from "styled-components";
@@ -7,16 +7,9 @@ import firebase from "firebase/app";
 
 const StyledForm = styled.form`
   padding: 20px;
-  position: fixed;
-  bottom: 0;
-  z-index: 1;
   background: #e9e9eb;
-  width: 90%;
-  margin: 20px;
-  border-radius: 10px;
-
-  left: 50%;
-  transform: translate(-50%, 0);
+  position: fixed:
+  bottom: 0;
 `;
 
 const StyledFormControl = styled(FormControl)`
@@ -36,7 +29,7 @@ const StyledIconButton = styled(IconButton)`
   flex: 0;
 `;
 
-const MessageInput = forwardRef((_, bottomOfMessageArea) => {
+const MessageInput = () => {
   const { displayName, uid, photoURL } = auth.currentUser;
 
   const [input, setInput] = useState("");
@@ -53,7 +46,6 @@ const MessageInput = forwardRef((_, bottomOfMessageArea) => {
     });
 
     setInput("");
-    bottomOfMessageArea.current.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -81,6 +73,6 @@ const MessageInput = forwardRef((_, bottomOfMessageArea) => {
       </StyledFormControl>
     </StyledForm>
   );
-});
+};
 
 export default MessageInput;
