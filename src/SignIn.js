@@ -1,10 +1,16 @@
 import { useState } from "react";
 import firebase from "firebase/app";
+import { Link, Redirect } from "react-router-dom";
+import { useStateValue } from "./StateProvider";
+
 
 function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
+  const [, dispatch]  = useStateValue();
+  
+
 
   const signInWithEmailAndPassword = (event) => {
     event.preventDefault();
@@ -13,7 +19,13 @@ function SignIn() {
       .signInWithEmailAndPassword(email, password)
       .then((userCredential) => {
         // Signed in
-        var user = userCredential.user;
+        dispatch({
+          type: "SIGN_IN_USER",
+          user: userCredential.user,
+        });
+        
+        // var user = userCredential.user;
+        <Redirect to="/" />;
         // ...
       })
       .catch((error) => {
@@ -21,11 +33,9 @@ function SignIn() {
       });
   };
 
-
-
   return (
     <form>
-      <p>Login</p>
+      <p>Sign In</p>
       {errorMessage && <p>{errorMessage}</p>}
       <input
         type="email"
@@ -40,6 +50,9 @@ function SignIn() {
       <button type="submit" onClick={signInWithEmailAndPassword}>
         Sign In
       </button>
+      <p>
+        Don't have an account? <Link to="/register">Register</Link>
+      </p>
     </form>
   );
 }
