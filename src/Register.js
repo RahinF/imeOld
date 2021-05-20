@@ -3,16 +3,12 @@ import firebase from "firebase/app";
 import { Link } from "react-router-dom";
 import { useStateValue } from "./StateProvider";
 
-
 function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
-  const [, dispatch]  = useStateValue();
-
-  console.log(useStateValue())
-
+  const [, dispatch] = useStateValue();
 
   const createUserWithEmailAndPassword = (event) => {
     event.preventDefault();
@@ -45,7 +41,6 @@ function Register() {
 
   return (
     <form>
-
       <p>Register</p>
       {errorMessage && <p>{errorMessage}</p>}
       <input
