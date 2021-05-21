@@ -1,6 +1,5 @@
 import { useState } from "react";
 import firebase from "firebase/app";
-import { Link } from "react-router-dom";
 import { useStateValue } from "./StateProvider";
 
 function Register() {
@@ -39,6 +38,13 @@ function Register() {
       });
   };
 
+  const switchToSignIn = (event) => {
+    event.preventDefault();
+    dispatch({
+      type: "SWITCH_TO_SIGN_IN",
+    });
+  }
+
   return (
     <form>
       <p>Register</p>
@@ -62,7 +68,7 @@ function Register() {
         Register
       </button>
       <p>
-        Have an account? <Link to="/sign-in">Sign In</Link>
+        Have an account? <button onClick={switchToSignIn}>Sign In</button>
       </p>
     </form>
   );

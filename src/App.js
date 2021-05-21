@@ -1,6 +1,4 @@
-import { useAuthState } from "react-firebase-hooks/auth";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { auth } from "./firebase";
+import { BrowserRouter as Router } from "react-router-dom";
 import MessageArea from "./MessageArea";
 import MessageInput from "./MessageInput";
 import SignIn from "./SignIn";
@@ -9,19 +7,19 @@ import SignOut from "./SignOut";
 import CreateRoom from "./CreateRoom";
 import RoomList from "./RoomList";
 import * as S from "./App.style";
+import { useStateValue } from "./StateProvider";
 
 function App() {
-  const [user] = useAuthState(auth);
+  const [{ user, accountEntry }] = useStateValue();
 
   return (
     <Router>
-      <Switch>
-        {/* {!user && ( */}
-        <>
-          <Route exact path="/sign-in" component={SignIn} />
-          <Route exact path="/register" component={Register} />
-        </>
-      </Switch>
+      {!user && 
+        {
+          "Sign In": <SignIn />,
+          "Register": <Register />,
+        }[accountEntry]
+      }
 
       <S.Header>
         <h1>iMe</h1>
@@ -29,21 +27,19 @@ function App() {
       </S.Header>
 
       <S.AppBody>
-        <S.Rooms>
-          <CreateRoom />
-          <RoomList />
-        </S.Rooms>
+        <S.Main>
+          {user && (
+            <>
+              <S.Rooms>
+                <CreateRoom />
+                <RoomList />
+              </S.Rooms>
 
-        <S.MessageSection>
-          <main>
-            {user && (
-              <>
-                <MessageArea />
-                <MessageInput />
-              </>
-            )}
-          </main>
-        </S.MessageSection>
+              <MessageArea />
+              <MessageInput />
+            </>
+          )}
+        </S.Main>
       </S.AppBody>
     </Router>
   );

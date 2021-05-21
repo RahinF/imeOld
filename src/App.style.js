@@ -18,6 +18,6 @@ export const Rooms = styled.div`
   background: lightblue;
 `;
 
-export const MessageSection = styled.div`
+export const Main = styled.main`
   background: lightred;
 `;

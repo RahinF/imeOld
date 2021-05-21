@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import FlipMove from "react-flip-move";
 import Message from "./Message";
-import { database, auth } from "./firebase";
+import { database } from "./firebase";
 import * as S from "./MessageArea.style";
+import { useStateValue } from "./StateProvider";
 
 function MessageArea() {
-  const { uid } = auth.currentUser;
+  const [{ user, room }] = useStateValue();
 
   const [messages, setMessages] = useState([]);
 
@@ -25,7 +26,7 @@ function MessageArea() {
     <S.MessageDisplayArea>
       <FlipMove>
         {messages.map(({ id, message }) => (
-          <Message key={id} uid={uid} message={message} />
+          <Message key={id} uid={user?.uid} message={message} />
         ))}
       </FlipMove>
     </S.MessageDisplayArea>

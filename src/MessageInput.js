@@ -1,23 +1,24 @@
 import { useState } from "react";
 import SendIcon from "@material-ui/icons/Send";
-import { database, auth } from "./firebase";
+import { database } from "./firebase";
 import firebase from "firebase/app";
 import * as S from "./MessageInput.style";
+import { useStateValue } from "./StateProvider";
 
 const MessageInput = () => {
-  const { displayName, uid, photoURL } = auth.currentUser;
+  const [{ user, room }] = useStateValue();
 
   const [input, setInput] = useState("");
 
   const sendMessage = (event) => {
     event.preventDefault();
 
-    database.collection("messages").add({
-      uid,
-      username: displayName,
+    database.collection("rooms").doc(room).collection("messages").add({
+      uid: user.uid,
+      username: user.displayName,
       text: input,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      photoURL,
+      photoURL: user.photoURL,
     });
 
     setInput("");

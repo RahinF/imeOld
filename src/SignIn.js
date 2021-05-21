@@ -1,6 +1,5 @@
 import { useState } from "react";
 import firebase from "firebase/app";
-import { Link, Redirect } from "react-router-dom";
 import { useStateValue } from "./StateProvider";
 
 
@@ -8,8 +7,8 @@ function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
-  const [, dispatch]  = useStateValue();
-  
+  const [, dispatch] = useStateValue();
+
 
 
   const signInWithEmailAndPassword = (event) => {
@@ -23,15 +22,22 @@ function SignIn() {
           type: "SIGN_IN_USER",
           user: userCredential.user,
         });
-        
+
         // var user = userCredential.user;
-        <Redirect to="/" />;
+
         // ...
       })
       .catch((error) => {
         setErrorMessage(error.message);
       });
   };
+
+  const switchToRegister = (event) => {
+    event.preventDefault();
+    dispatch({
+      type: "SWITCH_TO_REGISTER",
+    });
+  }
 
   return (
     <form>
@@ -51,7 +57,7 @@ function SignIn() {
         Sign In
       </button>
       <p>
-        Don't have an account? <Link to="/register">Register</Link>
+        Don't have an account? <button onClick={switchToRegister}>Register</button>
       </p>
     </form>
   );
