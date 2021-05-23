@@ -14,17 +14,17 @@ function App() {
 
   return (
     <Router>
-      {!user && 
-        {
-          "Sign In": <SignIn />,
-          "Register": <Register />,
-        }[accountEntry]
-      }
 
       <S.Header>
         <h1>iMe</h1>
         {user && <SignOut />}
       </S.Header>
+
+      {!user &&
+        {
+          "Sign In": <SignIn />,
+          "Register": <Register />,
+        }[accountEntry]}
 
       <S.AppBody>
         <S.Main>

@@ -3,12 +3,12 @@ import { database } from "./firebase";
 import firebase from "firebase/app";
 
 function CreateRoom() {
-  const [roomName, setRoomName] = useState("");
+  const [roomId, setRoomId] = useState("");
 
   const createRoom = () => {
     database.collection("rooms").add({
     //   owner: uid,
-      roomName: roomName,
+    roomId: roomId,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
   };
@@ -18,7 +18,7 @@ function CreateRoom() {
       <input
         type="text"
         placeholder="Enter Room Name"
-        onChange={(event) => setRoomName(event.target.value)}
+        onChange={(event) => setRoomId(event.target.value)}
       />
       <button onClick={createRoom}>Create room</button>
     </div>

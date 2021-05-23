@@ -13,7 +13,7 @@ function RoomList() {
 
     dispatch({
       type: "SET_CURRENT_ROOM",
-      roomNumber: id,
+      roomId: id,
     });
 
   }

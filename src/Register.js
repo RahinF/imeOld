@@ -1,6 +1,7 @@
 import { useState } from "react";
 import firebase from "firebase/app";
 import { useStateValue } from "./StateProvider";
+import { Button, TextField } from "@material-ui/core";
 
 function Register() {
   const [email, setEmail] = useState("");
@@ -43,30 +44,35 @@ function Register() {
     dispatch({
       type: "SWITCH_TO_SIGN_IN",
     });
-  }
+  };
 
   return (
     <form>
       <p>Register</p>
       {errorMessage && <p>{errorMessage}</p>}
-      <input
+      <TextField
         type="email"
-        placeholder="Email"
+        label="Email"
         onChange={(event) => setEmail(event.target.value)}
       />
-      <input
+      <TextField
         type="password"
-        placeholder="Password"
+        label="Password"
         onChange={(event) => setPassword(event.target.value)}
       />
-      <input
+      <TextField
         type="text"
-        placeholder="Username"
+        label="Username"
         onChange={(event) => setUsername(event.target.value)}
       />
-      <button type="submit" onClick={createUserWithEmailAndPassword}>
+      <Button
+        variant="contained"
+        color="primary"
+        type="submit"
+        onClick={createUserWithEmailAndPassword}
+      >
         Register
-      </button>
+      </Button>
       <p>
         Have an account? <button onClick={switchToSignIn}>Sign In</button>
       </p>
