@@ -5,15 +5,10 @@ export const Nav = styled(Toolbar)`
   justify-content: space-between;
 `;
 
-export const AppBody = styled.div`
-  display: flex;
-  justify-content: center;
-`;
 
-export const Rooms = styled.div`
-  background: lightblue;
-`;
 
 export const Main = styled.main`
-  background: lightred;
+  background: cornsilk;
+  display: flex;
+  width: 100%;
 `;

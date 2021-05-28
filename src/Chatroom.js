@@ -45,12 +45,15 @@ function Chatroom() {
   return (
     <>
       {roomId && (
-        <>
+        <div>
+            <div>Room Name</div>
           <S.MessageDisplayArea>
             {messages.map(({ id, message }) => (
               <Message key={id} uid={user?.uid} message={message} />
             ))}
           </S.MessageDisplayArea>
+
+
           <S.Form>
             <S.StyledFormControl>
               <S.InputArea>
@@ -72,7 +75,7 @@ function Chatroom() {
               </S.StyledIconButton>
             </S.StyledFormControl>
           </S.Form>
-        </>
+        </div>
       )}
     </>
   );

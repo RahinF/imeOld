@@ -2,12 +2,29 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { database } from "./firebase";
 import { useStateValue } from "./StateProvider";
-import * as S from "./RoomList.style"
+
+import firebase from "firebase/app";
+import { IconButton, TextField } from "@material-ui/core";
+import AddIcon from "@material-ui/icons/Add";
+import * as S from "./RoomList.style";
 
 function RoomList() {
   const [rooms, setRooms] = useState([]);
 
   const [, dispatch] = useStateValue();
+  const [roomName, setRoomName] = useState("");
+
+  const createRoom = (event) => {
+    event.preventDefault();
+
+    database.collection("rooms").add({
+      //   owner: uid,
+      roomName: roomName,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+
+    setRoomName("");
+  };
 
   const setCurrentRoom = (id) => {
     dispatch({
@@ -29,13 +46,30 @@ function RoomList() {
   }, []);
 
   return (
-    <S.RoomList>
-      {rooms.map(({ id, room }) => (
-        <Link key={id} to={`/room/${id}`} onClick={() => setCurrentRoom(id)}>
-         <div>{room.roomName}</div> 
-        </Link>
-      ))}
-    </S.RoomList>
+    <div>
+      <form>
+        <TextField
+          type="text"
+          label="Enter Room Name"
+          onChange={(event) => setRoomName(event.target.value)}
+        />
+        <IconButton
+          onClick={createRoom}
+          color="primary"
+          type="submit"
+          disabled={!roomName}
+        >
+          <AddIcon />
+        </IconButton>
+      </form>
+      <S.RoomList>
+        {rooms.map(({ id, room }) => (
+          <Link key={id} to={`/room/${id}`} onClick={() => setCurrentRoom(id)}>
+            <div>{room.roomName}</div>
+          </Link>
+        ))}
+      </S.RoomList>
+    </div>
   );
 }
 

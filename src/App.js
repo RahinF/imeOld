@@ -2,12 +2,12 @@ import { BrowserRouter as Router } from "react-router-dom";
 import SignIn from "./SignIn";
 import Register from "./Register";
 import SignOut from "./SignOut";
-import CreateRoom from "./CreateRoom";
 import RoomList from "./RoomList";
 import * as S from "./App.style";
 import { useStateValue } from "./StateProvider";
 import { AppBar, Typography } from "@material-ui/core";
 import Chatroom from "./Chatroom";
+import FriendList from "./FriendList";
 
 function App() {
   const [{ user, accountEntry }] = useStateValue();
@@ -21,26 +21,20 @@ function App() {
         </S.Nav>
       </AppBar>
 
-      {!user &&
+      <S.Main>
+      {user ?   (
+        <>
+          <RoomList />
+          <Chatroom />
+          <FriendList />
+        </>
+      ): (
         {
           "Sign In": <SignIn />,
           "Register": <Register />,
-        }[accountEntry]}
-
-      <S.AppBody>
-        <S.Main>
-          {user && (
-            <>
-              <S.Rooms>
-                <CreateRoom />
-                <RoomList />
-              </S.Rooms>
-
-              <Chatroom />
-            </>
-          )}
-        </S.Main>
-      </S.AppBody>
+        }[accountEntry]
+      )}
+      </S.Main>
     </Router>
   );
 }
