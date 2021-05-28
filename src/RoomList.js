@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { database } from "./firebase";
 import { useStateValue } from "./StateProvider";
-
+import * as S from "./RoomList.style"
 
 function RoomList() {
   const [rooms, setRooms] = useState([]);
@@ -10,15 +10,11 @@ function RoomList() {
   const [, dispatch] = useStateValue();
 
   const setCurrentRoom = (id) => {
-
     dispatch({
       type: "SET_CURRENT_ROOM",
       roomId: id,
     });
-
-  }
-
-  console.log(useStateValue())
+  };
 
   // Pull data from database
   useEffect(() => {
@@ -33,13 +29,13 @@ function RoomList() {
   }, []);
 
   return (
-    <div>
+    <S.RoomList>
       {rooms.map(({ id, room }) => (
         <Link key={id} to={`/room/${id}`} onClick={() => setCurrentRoom(id)}>
-          {room.roomName}
+         <div>{room.roomName}</div> 
         </Link>
       ))}
-    </div>
+    </S.RoomList>
   );
 }
 

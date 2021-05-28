@@ -1,12 +1,8 @@
 import styled from "styled-components";
+import { Toolbar } from "@material-ui/core";
 
-export const Header = styled.header`
-  background: #e9e9eb;
-  display: flex;
-  align-items: center;
+export const Nav = styled(Toolbar)`
   justify-content: space-between;
-  height: 10vh;
-  padding: 0 10px;
 `;
 
 export const AppBody = styled.div`

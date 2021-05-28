@@ -1,6 +1,4 @@
 import { BrowserRouter as Router } from "react-router-dom";
-import MessageArea from "./MessageArea";
-import MessageInput from "./MessageInput";
 import SignIn from "./SignIn";
 import Register from "./Register";
 import SignOut from "./SignOut";
@@ -8,17 +6,20 @@ import CreateRoom from "./CreateRoom";
 import RoomList from "./RoomList";
 import * as S from "./App.style";
 import { useStateValue } from "./StateProvider";
+import { AppBar, Typography } from "@material-ui/core";
+import Chatroom from "./Chatroom";
 
 function App() {
   const [{ user, accountEntry }] = useStateValue();
 
   return (
     <Router>
-
-      <S.Header>
-        <h1>iMe</h1>
-        {user && <SignOut />}
-      </S.Header>
+      <AppBar position="static">
+        <S.Nav>
+          <Typography variant="h4">iMe</Typography>
+          {user && <SignOut />}
+        </S.Nav>
+      </AppBar>
 
       {!user &&
         {
@@ -35,8 +36,7 @@ function App() {
                 <RoomList />
               </S.Rooms>
 
-              <MessageArea />
-              <MessageInput />
+              <Chatroom />
             </>
           )}
         </S.Main>

@@ -1,6 +1,11 @@
 import styled from "styled-components";
 import { FormControl, IconButton, TextField } from "@material-ui/core";
 
+export const MessageDisplayArea = styled.div`
+  height: 80vh;
+  overflow-y: auto;
+`;
+
 export const Form = styled.form`
   padding: 20px;
   background: #e9e9eb;

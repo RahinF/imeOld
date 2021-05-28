@@ -1,3 +1,4 @@
+import { Button } from "@material-ui/core";
 import firebase from "firebase/app";
 import { useStateValue } from "./StateProvider";
 
@@ -13,7 +14,7 @@ function SignOut() {
   };
 
 
-  return <button onClick={signOut}>Sign Out</button>;
+  return <Button color="inherit" onClick={signOut}>Sign Out</Button>
 }
 
 export default SignOut;

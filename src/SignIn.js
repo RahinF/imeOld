@@ -1,7 +1,8 @@
 import { useState } from "react";
 import firebase from "firebase/app";
 import { useStateValue } from "./StateProvider";
-import { Button, TextField } from "@material-ui/core";
+import { Button, Grid, Paper, TextField, Typography } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 
 function SignIn() {
   const [email, setEmail] = useState("");
@@ -38,32 +39,45 @@ function SignIn() {
   };
 
   return (
-    <form>
-      <p>Sign In</p>
-      {errorMessage && <p>{errorMessage}</p>}
-      <TextField
-        type="email"
-        label="Email"
-        onChange={(event) => setEmail(event.target.value)}
-      />
-      <TextField
-        type="password"
-        label="Password"
-        onChange={(event) => setPassword(event.target.value)}
-      />
-      <Button
-        variant="contained"
-        color="primary"
-        type="submit"
-        onClick={signInWithEmailAndPassword}
-      >
-        Sign In
-      </Button>
-      <p>
-        Don't have an account?{" "}
-        <button onClick={switchToRegister}>Register</button>
-      </p>
-    </form>
+    <Grid>
+      <Paper style={{ width: "400px", padding: "20px", margin: "20px auto" }}>
+        <form>
+          <Typography variant="h4" align="center" gutterBottom>
+            Sign In
+          </Typography>
+          {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
+
+          <TextField
+            fullWidth
+            required
+            type="email"
+            label="Email"
+            onChange={(event) => setEmail(event.target.value)}
+          />
+          <TextField
+            fullWidth
+            required
+            type="password"
+            label="Password"
+            onChange={(event) => setPassword(event.target.value)}
+          />
+
+          <Button
+            variant="contained"
+            color="primary"
+            fullWidth
+            type="submit"
+            onClick={signInWithEmailAndPassword}
+          >
+            Sign In
+          </Button>
+          <Typography variant="body1">Don't have an account?</Typography>
+          <Button variant="outlined" onClick={switchToRegister}>
+            Register
+          </Button>
+        </form>
+      </Paper>
+    </Grid>
   );
 }
 
