@@ -1,6 +1,9 @@
 import styled from "styled-components";
+import Tabs from "@material-ui/core/Tabs";
 
-export const RoomList = styled.div`
+
+export const TabList = styled(Tabs)`
+  max-height: 80vh;
   display: flex;
-  flex-direction: column;
+  flex-grow: 1;
 `;

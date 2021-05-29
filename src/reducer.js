@@ -1,6 +1,6 @@
 export const initialState = {
   user: null,
-  roomId: null,
+  room: null,
   accountEntry: "Sign In",
 };
 
@@ -21,7 +21,7 @@ const reducer = (state, action) => {
     case "SET_CURRENT_ROOM":
       return {
         ...state,
-        roomId: action.roomId,
+        room: action.room,
       };
 
     case "SWITCH_TO_SIGN_IN":

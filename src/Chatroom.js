@@ -8,16 +8,18 @@ import { useStateValue } from "./StateProvider";
 import SendIcon from "@material-ui/icons/Send";
 
 function Chatroom() {
-  const [{ user, roomId }] = useStateValue();
+  const [{ user, room }] = useStateValue();
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
 
+  
+
   // Pull data from database
   useEffect(() => {
-    if (roomId) {
+    if (room) {
       database
         .collection("rooms")
-        .doc(roomId)
+        .doc(room.id)
         .collection("messages")
         .orderBy("timestamp", "asc")
         .onSnapshot((snapshot) => {
@@ -26,12 +28,12 @@ function Chatroom() {
           );
         });
     }
-  }, [roomId]);
+  }, [room]);
 
   const sendMessage = (event) => {
     event.preventDefault();
 
-    database.collection("rooms").doc(roomId).collection("messages").add({
+    database.collection("rooms").doc(room.id).collection("messages").add({
       uid: user.uid,
       username: user.displayName,
       text: input,
@@ -44,9 +46,9 @@ function Chatroom() {
 
   return (
     <>
-      {roomId && (
+      {room && (
         <div>
-            <div>Room Name</div>
+            <div>{room.name}</div>
           <S.MessageDisplayArea>
             {messages.map(({ id, message }) => (
               <Message key={id} uid={user?.uid} message={message} />

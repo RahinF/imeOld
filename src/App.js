@@ -1,4 +1,3 @@
-import { BrowserRouter as Router } from "react-router-dom";
 import SignIn from "./SignIn";
 import Register from "./Register";
 import SignOut from "./SignOut";
@@ -13,7 +12,7 @@ function App() {
   const [{ user, accountEntry }] = useStateValue();
 
   return (
-    <Router>
+    <>
       <AppBar position="static">
         <S.Nav>
           <Typography variant="h4">iMe</Typography>
@@ -35,7 +34,7 @@ function App() {
         }[accountEntry]
       )}
       </S.Main>
-    </Router>
+    </>
   );
 }
 
