@@ -35,10 +35,8 @@ function Chatroom() {
 
     database.collection("rooms").doc(room.id).collection("messages").add({
       uid: user.uid,
-      username: user.displayName,
       text: input,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      photoURL: user.photoURL,
     });
 
     setInput("");
@@ -51,7 +49,7 @@ function Chatroom() {
             <div>{room.name}</div>
           <S.MessageDisplayArea>
             {messages.map(({ id, message }) => (
-              <Message key={id} uid={user?.uid} message={message} />
+              <Message key={id} currentUserId={user?.uid} message={message} />
             ))}
           </S.MessageDisplayArea>
 

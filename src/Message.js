@@ -1,22 +1,31 @@
 import { Typography } from "@material-ui/core";
 import moment from "moment";
-import { forwardRef } from "react";
+import { forwardRef, useState } from "react";
+import { database } from "./firebase";
 import * as S from "./Message.style";
 
-const Message = forwardRef(({ uid, message }, ref) => {
-  const isUser = uid === message.uid;
+const Message = forwardRef(({ currentUserId, message }, ref) => {
+  const isUser = currentUserId === message.uid;
+  const [displayName, setDisplayName] = useState(null);
+  const [avatar, setAvatar] = useState(null);
+
+
+  database.collection("users").doc(message.uid).get().then((userData) => {
+    setDisplayName(userData.data().displayName)
+    setAvatar(userData.data().avatar)
+  })
 
   return (
     <S.Card ref={ref} $currentuser={isUser}>
       <S.Body>
         <S.UserAvatar
-          src={message.photoURL}
-          alt={`${message.username}'s avatar`}
+          src={avatar}
+          alt={`${displayName}'s avatar`}
         />
 
         <S.Text $currentuser={isUser}>
           <S.Header>
-            <S.Username>{message.username}</S.Username>
+            <S.Username>{displayName}</S.Username>
 
             <S.Timestamp variant="subtitle2">
               {moment(message.timestamp?.toDate()).format("h:mm a  DD/MM/YYYY")}

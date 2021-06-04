@@ -2,6 +2,7 @@ import { useState } from "react";
 import firebase from "firebase/app";
 import { useStateValue } from "./StateProvider";
 import { Button, TextField } from "@material-ui/core";
+import { database } from "./firebase";
 
 function Register() {
   const [email, setEmail] = useState("");
@@ -15,18 +16,28 @@ function Register() {
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        // Signed in
-        userCredential.user
-          .updateProfile({
-            displayName: username,
-            // photoURL: "https://example.com/jane-q-user/profile.jpg"
+      .then(({ user }) => {
+        const newUser = {
+          uid: user.uid,
+          displayName: username,
+          comment: null,
+          avatar: null,
+        };
+
+        database
+          .collection("users")
+          .doc(user.uid)
+          .set({
+            displayName: newUser.displayName,
+            comment: newUser.comment,
+            avatar: newUser.avatar,
           })
+
           .then(function () {
             // Update successful.
             dispatch({
               type: "SIGN_IN_USER",
-              user: userCredential.user,
+              user: newUser,
             });
           })
           .catch(function (error) {
