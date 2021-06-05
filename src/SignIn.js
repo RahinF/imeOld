@@ -1,5 +1,4 @@
 import { useState } from "react";
-import firebase from "firebase/app";
 import { useStateValue } from "./StateProvider";
 import {
   Box,
@@ -10,7 +9,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
-import { database } from "./firebase";
+import { auth, database } from "./firebase";
 
 function SignIn() {
   const [email, setEmail] = useState("");
@@ -20,8 +19,8 @@ function SignIn() {
 
   const signInWithEmailAndPassword = (event) => {
     event.preventDefault();
-    firebase
-      .auth()
+    
+      auth
       .signInWithEmailAndPassword(email, password)
       .then(({ user }) => {
         // pull user
@@ -37,10 +36,6 @@ function SignIn() {
               user: { ...userData.data(), uid: user.uid },
             });
           });
-
-        // var user = userCredential.user;
-
-        // ...
       })
       .catch((error) => {
         setErrorMessage(error.message);

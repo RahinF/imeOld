@@ -1,8 +1,7 @@
 import { useState } from "react";
-import firebase from "firebase/app";
 import { useStateValue } from "./StateProvider";
 import { Button, TextField } from "@material-ui/core";
-import { database } from "./firebase";
+import { auth, database } from "./firebase";
 
 function Register() {
   const [email, setEmail] = useState("");
@@ -13,35 +12,33 @@ function Register() {
 
   const createUserWithEmailAndPassword = (event) => {
     event.preventDefault();
-    firebase
-      .auth()
+
+    auth
       .createUserWithEmailAndPassword(email, password)
       .then(({ user }) => {
+        // create new user
         const newUser = {
           uid: user.uid,
           displayName: username,
-          comment: null,
+          comment: "",
           avatar: null,
         };
 
+        // add user to db
         database
           .collection("users")
-          .doc(user.uid)
+          .doc(newUser.uid)
           .set({
             displayName: newUser.displayName,
             comment: newUser.comment,
             avatar: newUser.avatar,
           })
-
           .then(function () {
-            // Update successful.
+            // added user successfully, sign in.
             dispatch({
               type: "SIGN_IN_USER",
               user: newUser,
             });
-          })
-          .catch(function (error) {
-            // An error happened.
           });
       })
       .catch((error) => {

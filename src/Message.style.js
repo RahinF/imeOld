@@ -11,12 +11,6 @@ export const Text = styled.div`
   margin-left: 10px;
 `;
 
-export const UserAvatar = styled.img`
-  height: 50px;
-  border-radius: 50%;
-  align-self: center;
-`;
-
 export const Header = styled.div`
   display: flex;
 `;

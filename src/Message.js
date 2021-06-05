@@ -1,4 +1,4 @@
-import { Typography } from "@material-ui/core";
+import { Avatar, Typography } from "@material-ui/core";
 import moment from "moment";
 import { forwardRef, useState } from "react";
 import { database } from "./firebase";
@@ -18,7 +18,7 @@ const Message = forwardRef(({ currentUserId, message }, ref) => {
   return (
     <S.Card ref={ref} $currentuser={isUser}>
       <S.Body>
-        <S.UserAvatar
+        <Avatar
           src={avatar}
           alt={`${displayName}'s avatar`}
         />

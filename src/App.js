@@ -7,6 +7,7 @@ import { useStateValue } from "./StateProvider";
 import { AppBar, Typography } from "@material-ui/core";
 import Chatroom from "./Chatroom";
 import FriendList from "./FriendList";
+import UserSettings from "./UserSettings";
 
 function App() {
   const [{ user, accountEntry }] = useStateValue();
@@ -26,6 +27,7 @@ function App() {
           <RoomList />
           <Chatroom />
           <FriendList />
+          <UserSettings />
         </>
       ): (
         {

@@ -18,6 +18,12 @@ const reducer = (state, action) => {
         user: null,
       };
 
+    case "UPDATE_USER_INFO":
+      return {
+        ...state,
+        user: action.user,
+      };
+
     case "SET_CURRENT_ROOM":
       return {
         ...state,
